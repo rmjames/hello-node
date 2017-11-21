@@ -1,13 +1,21 @@
-const express = require('express');
-const app = express();
+'use strict';
+
+const config = require('./config.js'),
+	express = require('express'),
+ 	port = config.PORT,
+ 	app = express();
+
+app.use(express.static(__dirname +  '/view'));
 
 app.get('/', (req,res) => {
-	res.send('Hey World!!')
-	})
-
-app.listen(3000, (err) => {
-	if(err) {
-		return console.log('something happened',err)
-	}
-	console.log('Server Listening on 3000')
+	res.sendFile('index.html')
 })
+
+app.listen(port, (err) => {
+	if(err) {
+		return console.log('something happened', err)
+	}
+	console.log(`Server Listening on ${port}`);
+})
+
+module.exports = app;
